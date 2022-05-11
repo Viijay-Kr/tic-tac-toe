@@ -1,0 +1,19 @@
+@import "styles/colors.scss";
+@import "styles/mixins";
+
+.container {
+  display: flex;
+  position: relative;
+  & .cross {
+    width: 5px;
+    border-radius: 10px;
+    height: 30px;
+    position: absolute;
+    background-color: $cross;
+    @include rotate-fw;
+  }
+  & .cross-reverse {
+    @extend .cross;
+    @include rotate-bw;
+  }
+}
