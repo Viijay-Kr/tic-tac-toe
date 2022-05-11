@@ -10,7 +10,16 @@ https://docs.djangoproject.com/en/4.0/howto/deployment/asgi/
 import os
 
 from django.core.asgi import get_asgi_application
-
+from django.urls import path
+from channels.routing import ProtocolTypeRouter, URLRouter
+from .custom_ws import GraphqlWSConsumer
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'games.settings')
 
-application = get_asgi_application()
+django_asgi_application = get_asgi_application()
+
+application = ProtocolTypeRouter({
+    "http": django_asgi_application,
+    "websocket": URLRouter([
+        path('graphql/', GraphqlWSConsumer.as_asgi())
+    ])
+})

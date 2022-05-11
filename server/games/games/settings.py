@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'tictactoe.apps.TictactoeConfig',
     'graphene_django',
-    'channels'
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -71,10 +71,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'games.wsgi.application'
-
+ASGI_APPLICATION = 'games.asgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 DATABASES = {
     'default': {
