@@ -1,7 +1,8 @@
 import Head from "next/head";
 import "react-responsive-modal/styles.css";
 import styles from "styles/Home.module.scss";
-import { Game } from "./components/Game";
+import { SignUp } from "./containers/SignUp";
+import { PlayerContextProvider } from "./contexts/Player.context";
 
 export default function Home() {
   return (
@@ -14,7 +15,9 @@ export default function Home() {
       <main className={styles.main}>
         <h1 className={styles.title}>Play tick tac toe with your friends</h1>
       </main>
-      <Game />
+      <PlayerContextProvider>
+        <SignUp />
+      </PlayerContextProvider>
     </div>
   );
 }

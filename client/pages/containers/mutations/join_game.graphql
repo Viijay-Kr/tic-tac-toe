@@ -1,0 +1,15 @@
+mutation JoinGameMutation($gameId: ID!, $playerId: ID!) {
+  joinGame(gameId: $gameId, playerId: $playerId) {
+    game {
+      id
+      player1 {
+        ...Player
+      }
+      player2 {
+        ...Player
+      }
+      player1Mark
+      player2Mark
+    }
+  }
+}

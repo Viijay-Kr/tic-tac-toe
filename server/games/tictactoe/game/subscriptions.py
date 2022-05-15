@@ -25,5 +25,22 @@ class JoinGameSubscription(channels_graphql_ws.Subscription):
         return cls.broadcast(group='game_'+str(game.id), payload=game)
 
 
+class NewGameSubscription(channels_graphql_ws.Subscription):
+    event = graphene.Field(lambda: GameType)
+
+    @staticmethod
+    def subscribe(self, info):
+        return ['new_game']
+
+    @staticmethod
+    def publish(payload, info):
+        return NewGameSubscription(event=payload)
+
+    @classmethod
+    def on_new_game(cls, game):
+        return cls.broadcast(group='new_game', payload=game)
+
+
 class GameSubscriptions(graphene.ObjectType):
     on_join_game = JoinGameSubscription.Field()
+    on_new_game = NewGameSubscription.Field()

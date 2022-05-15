@@ -1,0 +1,98 @@
+@import "styles/colors";
+
+.primary-game-btn {
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  background-color: $button;
+  border-radius: 0.3rem;
+  padding: 1px;
+  &:hover {
+    color: #fff;
+  }
+}
+.head-title {
+  text-align: center;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+  padding: 0.5rem;
+  border-bottom: 1px solid $cross;
+}
+.game-section {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+  justify-content: space-between;
+  & .active-games,
+  .idle-games {
+    display: flex;
+    flex-direction: column;
+    flex-basis: 25%;
+    padding: 1rem;
+    box-shadow: 2px 1px 10px $grid inset;
+    border-radius: 0.5rem;
+    & .table-section {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto;
+      & .table-head {
+        font-size: 14px;
+        font-weight: 500;
+        padding: 0.8rem;
+      }
+      & .table-item {
+        border-top: 1px solid $cross;
+        padding: 0.8rem;
+        font-size: 13px;
+        font-weight: 300;
+      }
+      & .join-game-btn,
+      .subscribe-btn {
+        @extend .primary-game-btn;
+        height: 30px;
+      }
+    }
+  }
+  & .your-game {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-basis: 50%;
+    gap: 1rem;
+    padding: 1.5rem;
+    padding-top: 0;
+    & .game-grid {
+      flex-basis: 50%;
+    }
+    & .game-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      padding-top: 1rem;
+      flex-basis: 20%;
+      & .new-game-btn {
+        @extend .primary-game-btn;
+        background-color: #80868695;
+        height: 40px;
+      }
+      & .leave-game-btn {
+        @extend .primary-game-btn;
+        background-color: #80868695;
+        height: 40px;
+      }
+      & .rematch-btn {
+        @extend .primary-game-btn;
+        background-color: $circle;
+        height: 40px;
+      }
+    }
+    & .current-game {
+      display: flex;
+      flex-direction: column;
+      flex: 20%;
+      padding-top: 1rem;
+      gap: 1rem;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+subscription OnNewGameSubscription {
+  onNewGame {
+    event {
+      id
+      player1 {
+        ...Player
+      }
+    }
+  }
+}
+
+subscription onJoinGameSubscription($gameId: ID!) {
+  onJoinGame(gameId: $gameId) {
+    event {
+      id
+      player2 {
+        ...Player
+      }
+    }
+  }
+}

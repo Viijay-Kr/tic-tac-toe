@@ -1,0 +1,9 @@
+mutation CreatePlayer($name: String!) {
+  createPlayer(name: $name) {
+    player {
+      name
+      id
+      status
+    }
+  }
+}

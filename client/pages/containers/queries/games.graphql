@@ -1,0 +1,40 @@
+fragment Player on PlayerType {
+  name
+  id
+}
+
+query YourGames($playerId: ID) {
+  activeGamesOfPlayer(id: $playerId) {
+    id
+    playersCount
+    player1 {
+      ...Player
+    }
+    player1Mark
+    player2 {
+      ...Player
+    }
+  }
+}
+
+query IdleGames {
+  idleGames {
+    id
+    playersCount
+    player1 {
+      ...Player
+    }
+  }
+}
+
+query ActiveGamesOfPlayer($id: ID!) {
+  activeGamesOfPlayer(id: $id) {
+    id
+    player1 {
+      ...Player
+    }
+    player2 {
+      ...Player
+    }
+  }
+}

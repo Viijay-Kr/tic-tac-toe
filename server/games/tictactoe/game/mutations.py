@@ -2,7 +2,7 @@ import logging
 import graphene
 from tictactoe.models import Player
 from tictactoe.models import Game
-from tictactoe.game.subscriptions import JoinGameSubscription
+from tictactoe.game.subscriptions import JoinGameSubscription, NewGameSubscription
 from tictactoe.game.game import GameType
 
 
@@ -21,6 +21,7 @@ class CreateGame(graphene.Mutation):
         )
         game.players_count = 1
         game.save()
+        NewGameSubscription.on_new_game(game)
         return CreateGame(game=game)
 
 

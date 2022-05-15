@@ -9,6 +9,7 @@ interface Props {
   circles?: number[];
   crosses?: number[];
   layout?: number;
+  classes?: string;
   onBoxClick?: (boxNumber: number) => void;
 }
 export const Grid: React.FC<Props> = ({
@@ -16,13 +17,15 @@ export const Grid: React.FC<Props> = ({
   crosses = [],
   layout = 9,
   onBoxClick,
+  classes,
 }) => {
   const onBoxClickHandler = (boxNumber: number) => () =>
     onBoxClick?.(boxNumber);
   return (
-    <div className={styles.container}>
+    <div className={classNames(styles.container, classes)}>
       {Array.from(Array(layout).keys()).map((i) => (
         <div
+          key={i}
           onClick={onBoxClickHandler(i + 1)}
           className={classNames(styles["box"], styles[`box-${i + 1}`])}
         >
