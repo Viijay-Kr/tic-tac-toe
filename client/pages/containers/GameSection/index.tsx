@@ -1,3 +1,4 @@
+import { usePlayerContext } from "pages/contexts/Player.context";
 import React from "react";
 import { ActiveGames } from "./ActiveGames";
 import styles from "./GameSection.module.scss";

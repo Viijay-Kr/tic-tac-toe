@@ -1,21 +1,24 @@
-subscription OnNewGameSubscription {
+subscription onNewGame {
   onNewGame {
     event {
-      id
-      player1 {
-        ...Player
-      }
+      ...Game
     }
   }
 }
 
-subscription onJoinGameSubscription($gameId: ID!) {
+subscription onJoinGame($gameId: ID!) {
   onJoinGame(gameId: $gameId) {
     event {
-      id
-      player2 {
-        ...Player
-      }
+      ...Game
+    }
+  }
+}
+
+subscription onGamePlaye($gameId: ID!) {
+  onGamePlay(gameId: $gameId) {
+    grid
+    game {
+      ...Game
     }
   }
 }

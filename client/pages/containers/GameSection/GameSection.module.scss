@@ -4,7 +4,7 @@
   border: none;
   width: 100%;
   cursor: pointer;
-  background-color: $button;
+  background-color: $cross;
   border-radius: 0.3rem;
   padding: 1px;
   &:hover {
@@ -34,7 +34,7 @@
     border-radius: 0.5rem;
     & .table-section {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: 40px auto auto;
       grid-template-rows: auto;
       & .table-head {
         font-size: 14px;
@@ -93,6 +93,15 @@
       flex: 20%;
       padding-top: 1rem;
       gap: 1rem;
+      & .player-marks {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+        align-items: center;
+      }
+      & .cross-mark {
+        top: -11px;
+      }
     }
   }
 }

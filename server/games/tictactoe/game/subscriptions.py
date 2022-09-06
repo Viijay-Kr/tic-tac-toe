@@ -1,7 +1,8 @@
-from tokenize import group
 import channels_graphql_ws
 import graphene
+from tictactoe.game.game_play import GamePlay, Marks
 from tictactoe.game.game import GameType
+from tictactoe.models import Game, Player
 
 
 class JoinGameSubscription(channels_graphql_ws.Subscription):
@@ -41,6 +42,43 @@ class NewGameSubscription(channels_graphql_ws.Subscription):
         return cls.broadcast(group='new_game', payload=game)
 
 
+class GamePlayResult(graphene.ObjectType):
+    marks = graphene.List(lambda: Marks)
+    game = graphene.Field(lambda: GameType)
+
+
+class GamePlaySubscription(channels_graphql_ws.Subscription):
+    result = graphene.Field(lambda: GamePlayResult)
+    games = dict()
+
+    class Arguments:
+        game_id = graphene.ID(required=True)
+
+    @staticmethod
+    def subscribe(self, info, game_id):
+        GamePlaySubscription.games[game_id] = GamePlay(game_id=game_id)
+        return ['game_play_'+str(game_id)]
+
+    @staticmethod
+    def unsubscribe(self, info, game_id):
+        del self.games[game_id]
+        return ['game_play_' + str(game_id)]
+
+    @staticmethod
+    def publish(payload, info, game_id=None):
+        return GamePlaySubscription(result=payload)
+
+    @classmethod
+    def on_mark(self, game_id, player_id, x, y):
+        game_play = GamePlaySubscription.games.get(game_id)
+        active_marks = game_play.on_mark(player_id, x, y)
+        return self.broadcast(group='game_play_'+str(game_id), payload={
+            'marks': [active_marks],
+            'game': game_play.active_game,
+        })
+
+
 class GameSubscriptions(graphene.ObjectType):
     on_join_game = JoinGameSubscription.Field()
     on_new_game = NewGameSubscription.Field()
+    on_game_play = GamePlaySubscription.Field()

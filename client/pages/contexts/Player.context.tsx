@@ -1,8 +1,18 @@
 import { usePlayer } from "pages/hooks/usePlayer";
-import { PlayerByIdQuery, PlayerType } from "pages/__generated__/types";
-import React, { useContext } from "react";
+import {
+  GameType,
+  Maybe,
+  PlayerByIdQuery,
+  PlayerType,
+} from "pages/__generated__/types";
+import React, { useContext, useState } from "react";
 
-export type Player = PlayerByIdQuery["playersById"];
+export interface Player {
+  id?: PlayerType["id"];
+  name?: PlayerType["name"];
+  subscribedGame?: GameType["id"] | null;
+  subscribeForGame: (gameId: GameType["id"]) => void;
+}
 
 const PlayerContext = React.createContext<Player | null>(null);
 
@@ -11,8 +21,18 @@ export const PlayerContextProvider: React.FC<{
 }> = ({ children }) => {
   const [result] = usePlayer();
   const player = result.data?.playersById ?? null;
+  const [subscribedGame, setSubcribeGame] = useState<GameType["id"]>("");
   return (
-    <PlayerContext.Provider value={player}>{children}</PlayerContext.Provider>
+    <PlayerContext.Provider
+      value={{
+        name: player?.name,
+        id: player?.id,
+        subscribedGame,
+        subscribeForGame: (gameId) => setSubcribeGame(gameId),
+      }}
+    >
+      {children}
+    </PlayerContext.Provider>
   );
 };
 

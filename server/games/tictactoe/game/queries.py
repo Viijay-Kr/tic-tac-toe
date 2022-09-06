@@ -14,7 +14,7 @@ class GamesQuery(graphene.ObjectType):
         return Game.objects.all().filter(status=Game.GameStatus.ACTIVE)
 
     def resolve_active_games_of_player(self, info, id):
-        return Game.objects.filter(player_1=id)
+        return Game.objects.filter(owner=id)
 
     def resolve_idle_games(self, info):
         return Game.objects.filter(status=Game.GameStatus.IDLE)

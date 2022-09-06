@@ -3,38 +3,26 @@ fragment Player on PlayerType {
   id
 }
 
+fragment Game on GameType {
+  id
+  owner {
+    ...Player
+  }
+  opponent {
+    ...Player
+  }
+  ownerMark
+  opponentMark
+}
+
 query YourGames($playerId: ID) {
   activeGamesOfPlayer(id: $playerId) {
-    id
-    playersCount
-    player1 {
-      ...Player
-    }
-    player1Mark
-    player2 {
-      ...Player
-    }
+    ...Game
   }
 }
 
 query IdleGames {
   idleGames {
-    id
-    playersCount
-    player1 {
-      ...Player
-    }
-  }
-}
-
-query ActiveGamesOfPlayer($id: ID!) {
-  activeGamesOfPlayer(id: $id) {
-    id
-    player1 {
-      ...Player
-    }
-    player2 {
-      ...Player
-    }
+    ...Game
   }
 }

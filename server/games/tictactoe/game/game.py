@@ -5,3 +5,4 @@ class GameType(DjangoObjectType):
     class Meta:
         model = Game
         fields = '__all__'
+        

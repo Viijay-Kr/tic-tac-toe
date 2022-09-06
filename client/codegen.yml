@@ -7,3 +7,6 @@ generates:
       - "typescript"
       - "typescript-operations"
       - "typescript-urql"
+    config:
+      skipTypename: true
+      inlineFragmentTypes: combine

@@ -14,4 +14,4 @@ class PlayersQuery(graphene.ObjectType):
         return Player.objects.all()
 
     def resolve_playersById(self, info, id):
-        return Player.objects.get(pk=id)    
+        return Player.objects.get(pk=id)

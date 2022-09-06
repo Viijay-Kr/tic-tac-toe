@@ -27,7 +27,7 @@ class Game(models.Model):
         FINISHED = "finished"
         ACTIVE = 'active'
 
-    class PlayerMark(models.TextChoices):
+    class Mark(models.TextChoices):
         CIRCLE = 'circle'
         CROSS = 'cross'
 
@@ -35,11 +35,13 @@ class Game(models.Model):
     players_count = models.IntegerField()
     status = models.CharField(
         max_length=30, choices=GameStatus.choices, default=GameStatus.IDLE)
-    player_1 = models.ForeignKey(
-        Player, on_delete=models.CASCADE, related_name='player_1', null=True)
-    player_2 = models.ForeignKey(
-        Player, on_delete=models.CASCADE, related_name='player_2', null=True)
-    player_1_mark = models.CharField(
-        max_length=30, choices=PlayerMark.choices, default=PlayerMark.CIRCLE)
-    player_2_mark = models.CharField(
-        max_length=30, choices=PlayerMark.choices, default=PlayerMark.CROSS)
+    owner = models.ForeignKey(
+        Player, on_delete=models.CASCADE, related_name='owner', null=True)
+    opponent = models.ForeignKey(
+        Player, on_delete=models.CASCADE, related_name='opponent', null=True)
+    owner_mark = models.CharField(
+        max_length=30, choices=Mark.choices, default=Mark.CIRCLE)
+    opponent_mark = models.CharField(
+        max_length=30, choices=Mark.choices, default=Mark.CROSS)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
