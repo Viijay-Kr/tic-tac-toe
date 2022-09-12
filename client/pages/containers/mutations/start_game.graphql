@@ -1,5 +1,0 @@
-mutation StartGame($gameId: ID!, $playerId: ID!, $x: Int!, $y: Int!) {
-  gamePlay(gameId: $gameId, playerId: $playerId, x: $x, y: $y) {
-    message
-  }
-}
