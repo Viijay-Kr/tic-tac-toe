@@ -1,7 +1,0 @@
-mutation JoinGameMutation($gameId: ID!, $playerId: ID!) {
-  joinGame(gameId: $gameId, playerId: $playerId) {
-    game {
-      ...Game
-    }
-  }
-}

@@ -1,5 +1,0 @@
-query PlayerById($id: Int) {
-  playersById(id: $id) {
-    ...Player
-  }
-}

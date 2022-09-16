@@ -1,7 +1,0 @@
-mutation NewGameMutation($playerId: ID!) {
-  createGame(player1: $playerId) {
-    game {
-      ...Game
-    }
-  }
-}
